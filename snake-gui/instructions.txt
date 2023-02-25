@@ -1,0 +1,30 @@
+Ohjeet Snake peliin
+
+Pelin toiminnallisuus:
+Pelissä aukeaa ikkuna, jossa voi ennen pelin alkua nähdä madon pään melkein keskellä vihreää pelialuetta. 
+Ikkunan oikeassa reunassa on ylhäällä kaksi liu'utinta, jolla voi valita määritellyissä rajoissa kentän koon. Valinta vahvistuu Change nappia painamalla. Kentän kokoa voi muuttaa vain ennen ensimmäistä peliä, 
+jotta kaikki pelit, jotka tulevat top 3 taulukkoon, ovat pelattu samalla kentällä. Ennen pelin aloitusta pelaajan tulee syöttää nimi, sekä valita siemen luku, jos ei halua sen olevan nolla. Peli alkaa Start napista. Pelin aloituksen jälkeen mato liikkuu ylöspäin ja Time kohdassa aika alkaa juosta sekunteina. Pelin tarkoituksena on pysyä vihreällä peli alueella ja olla törmäämättä itseensä. Jos tässä ei onnistu mato kuolee ja pelin häviää. Pelissä pisteitä voi saada syömällä omenoita, joita kuvataan punaisilla palloilla peli alueella. Kun syö omenan mato kasvaa ja omena vaihtaa satunnaisesti paikkaa. Yhdestä omenasta saa yhden pisteen. Pisteet näkyvät oikeassa reunassa Pause napin oikealla puolella. 
+Pelin voi keskeyttää milloin vain Pause napista, ja jatkaa samaa nappia painamalla. Pelin voi myös aloittaa alusta reset nappia käyttämällä, joka nollaa pelin alkuun. Reset nappi poistaa madon kentältä pelkäksi pääksi keskelle kenttää ja nollaa pisteet. Resetin jälkeen nimeä ja siemen lukua voi muuttaa jos haluaa, mutta ne ovat automaattisesti samat kuin edellisessä pelissä. Resetin jälkeen tulee painaa start nappia aloittaakseen uuden pelin. Pelissä liikutaan pelikentän alapuolella olevilla napeilla joissa lukee suunta, mihin nappi muuttaa madon liikettä. Madon liikettä ei voi kuitenkaan muuttaa pelin ollessa tauolla tai jos yritetään muuttaa suuntaa 180 astetta. Yhden pelin päätyttyä pelaajan pisteet ja nimi tulevat top 3 taulukkoon, jos ne riittävät sinne.
+Pelin päätyttyä ikkunan tausta muuttuu vihreäksi tai punaiseksi riippuen siitä voittiko pelaaja vai ei. Pelin voi voittaa saamalla 100 pistettä. Pelin päättyessä tulee myös teksti joka kertoo voitosta tai häviöstä. 
+
+Ohjelman rakenne:
+Ohjelma on toteutettu kokonaan mainwindow.cpp poislukien kahta haku toimintoa molemmissa point ja gameboard luokassa, minkä avulla saadaan madon koordinaatit. Ohjelma on alun määrittelyiden jälkeen toteutettu timerin avulla, joka kutsuu move funktiota, joka taaskin toteuttaa kaikki tarvittavat asiat madon liikkumista vartin graafisessa käyttöliittymässä. Move funktio kutsuu muita funktioita suorittaakseen halutun lopputuloksen. Kaikilla napeilla on myös omat funktiot, minkä avulla ne toteuttavat tarvittavat toimenpiteet. Kokonaan designerissa ei ole suoritettu yhdistämisiä tai muita toimenpiteitä pois lukien labelien ja nappien nimeämiset. Madon osien kordinaatit on tallennettu snake_ muuttujaan pareina (x, y). Ruoan koordinaatit on tallennettu samanlaiseen pariin. Koordinaatit haetaan gameboardin kautta points luokasta. Pelit tallennetaan start napin painamisen ja nimen ollessa syötettynä games_ vektoriin, mitä kautta tiettyä peliä voidaan käsitellä.
+
+Suunnittelu päätökset:
+Päätin toteuttaa vain ruoan omana pointterina, koska madon vartalo oli helppo toteuttaa loopilla joka liikkeen jälkeen, sekä palojen siirtely olisi vaatinut paljon työtä. Jotta saisin madon koordinaatit tarvitsin haku metodeja luokkiin gameboard ja points.  Mahdollisimman paljon koodista on kirjoitettu auki designerin sijaan selvyyden vuoksi. Suunnan valinta on toteutettu nappien avulla, jotta vältytään ongelmilta, joita voi ilmentyä käyttäjän virheistä. Koodin tekemiseen on mennyt pitkään ja alkuperäinen ajatus on karannut monta kertaa, jonka vuoksi ratkaisut ovat välillä toteutettu aika oudosti.
+
+Lisäominaisuudet:
+- 1. Peliruudukon kokoa voi säätää käyttöliittymän kautta. (10 p.)
+Peliruudukon kokoa voi säätää oikeassa yläkulmassa olevilla liu'uttimilla liikuttamalla niitä ja painamalla change nappia.
+- 3. Madon eri osilla on eri värit (liukuvasti). (20 p.)
+Madon pää on musta ja madon häntä on valkoinen minimivaatimuksien perusteella, mutta muu vartalo muuttaa väriä liukuvasti rbg arvojen perusteella alkaen punaisesta väristä. Koko väri liukuma näkyy kun saavuttaa pituuden 101.
+- 6. Pelissä on ajastin, joka kertoo siihen mennessä käytetyn ajan. (5 p.)
+Pelissä on oikeassa reunassa ajastin jossa kulkee aika sekuntteina 0 eteenpäin ja sen oikealla puolella sekuntin kymmenyksinä 0-9.
+- 7. Pelissä on jonkinlainen pistelasku, joka perustuu pelaajan taitavuuteen. Voit itse valita tavan laskea pisteitä. Muista dokumentoida piste laskutapasi. (10 p.)
+Pisteitä lasketaan syödyistä omenoista. 1 piste per omena 100 asti, jolloin peli on voitettu.
+- 8. Peli sisältää tulostaulun, johon tallentuu pelaajan saamat pisteet. Tallennetut tiedot säilyvät pelistä toiseen (eli ne tallennetaan tiedostoon). Tulostauluun voidaan tallentaa usean eri pelaajan pisteet, joten pelin alussa käyttäjä voi (ainakin halutessaan) antaa käyttäjänimensä. (10 p.)
+Pelin alussa kysytty käyttäjän nimi ja tämän saadut pisteet näytetään top 3 taulukolla oikealla sijalla, jos pisteet riittävät sinne. Alussa ensimmäiset kolme pelaajaa pääsevät taululle vaikka saisivat 0 pistettä.
+- 9. Käyttöliittymän taustaväri vaihtuu, kun pelaaja voittaa tai häviää (voitosta taustaväri muuttuu esim. vihreäksi ja häviöstä punaiseksi). Uudelleen aloituksessa (reset) taustaväri palautuu ennalleen. (10 p.)
+Pelaaja voitettua tai hävittyä ikkunan taustaväri muuttuu vihreäksi "you win" tekstillä tai punaiseksi "you lost" tekstillä. Reset nappi muuttaa ikkunan värin takaisin normaaliksi.
+- 10. Pelissä on pause-nappula, jolla ajanoton saa pysäytettyä, kun peli on käynnissä. Tällöin peli lakkaa esim. vastaamasta näppäin komentoihin. Käyttäjälle ilmoitetaan jotenkin, että pause on meneillään. (10 p.)
+Ajanoton saa pysäytettyä oikeassa reunassa olevalla pause napilla joka on start ja reset nappien välissä. Samalla sen teksti muuttuu "continue", jota painamalla peli jatkuu normaalisti. Pausen aikana ei voi muuttaa suuntaa.
